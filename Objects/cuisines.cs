@@ -71,6 +71,68 @@ namespace cuisineRestaurants
       return allCuisines;
     }
 
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO cuisines (name) OUTPUT INSERTED.id VALUES (@cuisinesnames);", conn);
+
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@cuisinesnames";
+      nameParameter.Value = this.GetName();
+      cmd.Parameters.Add(nameParameter);
+      rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public static Cuisines Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr = null;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM cuisines WHERE id = @CuisinesId;", conn);
+      SqlParameter cuisinesIdParameter = new SqlParameter();
+      cuisinesIdParameter.ParameterName = "@CuisinesId";
+      cuisinesIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(cuisinesIdParameter);
+      rdr = cmd.ExecuteReader();
+
+      int foundCuisinesId = 0;
+      string foundCuisinesName = null;
+
+      while(rdr.Read())
+      {
+        foundCuisinesId = rdr.GetInt32(0);
+        foundCuisinesName = rdr.GetString(1);
+      }
+      Cuisines foundCuisines = new Cuisines(foundCuisinesName, foundCuisinesId);
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+      return foundCuisines;
+    }
+
     public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();
