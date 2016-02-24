@@ -9,7 +9,7 @@ namespace cuisineRestaurants
       private string _name;
       private int _id;
 
-    public Cuisines(string name, int id)
+    public Cuisines(string name, int id = 0)
     {
       _name = name;
       _id = id;

@@ -12,14 +12,20 @@ namespace cuisineRestaurants
     {
       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=restaurantCuisine_test;Integrated Security=SSPI;";
     }
+
     [Fact]
     public void Cuisines_EmptyAtFirst()
     {
-      //Arrange, Act
       int result = Cuisines.GetAll().Count;
-
-      //Assert
       Assert.Equal(0, result);
+    }
+
+    [Fact]
+    public void Cuisines_EqualToEachOther()
+    {
+      Cuisines firstCuisines = new Cuisines("Chinese");
+      Cuisines secondCuisines = new Cuisines("Chinese");
+      Assert.Equal(firstCuisines, secondCuisines);
     }
 
     public void Dispose()
