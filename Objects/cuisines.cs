@@ -165,9 +165,8 @@ namespace cuisineRestaurants
         string RestaurantsColor = rdr.GetString(4);
         int cuisineId = rdr.GetInt32(5);
         DateTime RestaurantsDate = rdr.GetDateTime(3);
-        Restaurants newRestaurants = new Restaurants(RestaurantsName, RestaurantsLocation, RestaurantsDate, RestaurantsColor,  cuisineId, RestaurantsId);
+        Restaurants newRestaurants = new Restaurants(RestaurantsName, RestaurantsLocation, RestaurantsDate, RestaurantsColor, cuisineId, RestaurantsId);
         restaurants.Add(newRestaurants);
-        Console.WriteLine("This will be the cause  of our sadness: " + rdr.GetInt32(0));
       }
       if (rdr != null)
       {
