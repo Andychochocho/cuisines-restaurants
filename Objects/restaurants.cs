@@ -100,7 +100,7 @@ namespace cuisineRestaurants
       SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("Select * FROM  restaurants ORDER BY name DESC;",conn);
+      SqlCommand cmd = new SqlCommand("Select * FROM restaurants ORDER BY name DESC;",conn);
       rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
@@ -112,7 +112,9 @@ namespace cuisineRestaurants
         string RestaurantsColor = rdr.GetString(4);
         int RestaurantsCuisineId = rdr.GetInt32(5);
 
-        Restaurants newRestaurants = new Restaurants(RestaurantsName, RestaurantsLocation, RestaurantsDate, RestaurantsColor, RestaurantsId, RestaurantsCuisineId);
+        Restaurants newRestaurants = new Restaurants(RestaurantsName, RestaurantsLocation, RestaurantsDate, RestaurantsColor, RestaurantsCuisineId, RestaurantsId);
+        allRestaurants.Add(newRestaurants);
+
       }
       if (rdr != null)
       {
@@ -210,7 +212,7 @@ namespace cuisineRestaurants
         foundRestaurantsDate = rdr.GetDateTime(4);
         foundCuisinesId = rdr.GetInt32(5);
       }
-      Restaurants foundRestaurants = new Restaurants(foundRestaurantsName, foundRestaurantsLocation, foundRestaurantsDate, foundRestaurantsColor, foundRestaurantsId, foundCuisinesId);
+      Restaurants foundRestaurants = new Restaurants(foundRestaurantsName, foundRestaurantsLocation, foundRestaurantsDate, foundRestaurantsColor, foundCuisinesId, foundRestaurantsId);
 
       if(rdr != null)
       {

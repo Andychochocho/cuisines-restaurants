@@ -26,6 +26,20 @@ namespace cuisineRestaurants
         Restaurants secondRestaurants = new Restaurants("Carl's Jr.", "Canada", new DateTime(1999, 12, 15), "orange", 1);
         Assert.Equal(firstRestaurants,secondRestaurants);
     }
+
+    [Fact]
+    public void Test_Save_SaveobjecttoDB()
+    {
+      Restaurants testingRestaurant = new Restaurants ("Gimilis Ale House", "Middle Earth", new DateTime(1753, 2, 2), "Orc Blood", 1);
+      testingRestaurant.Save();
+
+      List<Restaurants> results = Restaurants.GetAll();
+      List<Restaurants> test = new List<Restaurants> {testingRestaurant};
+
+      // Console.WriteLine(results[0].GetName());
+
+      Assert.Equal(results,test);
+    }
     public void Dispose()
    {
      Restaurants.DeleteAll();
