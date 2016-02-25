@@ -131,7 +131,7 @@ namespace cuisineRestaurants
       SqlDataReader rdr;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("Insert INTO restaurants (name, location, opening_date, color, cuisine_id) OUTPUT INSERTED.id VALUES (@RName, @RLocation, @RODate, @RColor, @CId);",conn);
+      SqlCommand cmd = new SqlCommand("Insert INTO restaurants (name, location, opening_date, color, cuisine_id) OUTPUT INSERTED.id VALUES (@RName, @RLocation, @RODate, @RColor, @cId);",conn);
 
       SqlParameter nameParameter = new SqlParameter();
       nameParameter.ParameterName = "@RName";

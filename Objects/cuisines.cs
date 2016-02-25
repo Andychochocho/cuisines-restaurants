@@ -50,7 +50,7 @@ namespace cuisineRestaurants
       SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM Cuisines;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM cuisines;", conn);
       rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
@@ -157,16 +157,15 @@ namespace cuisineRestaurants
       Console.WriteLine("RDR: "+ rdr);
 
       List<Restaurants> restaurants = new List<Restaurants> {};
-      Console.WriteLine("THE MISTAKE --->" + restaurants);
       while(rdr.Read())
       {
         int RestaurantsId = rdr.GetInt32(0);
         string RestaurantsName = rdr.GetString(1);
         string RestaurantsLocation = rdr.GetString(2);
         string RestaurantsColor = rdr.GetString(4);
-        int cuisineId = rdr.GetInt32 (5);
+        int cuisineId = rdr.GetInt32(5);
         DateTime RestaurantsDate = rdr.GetDateTime(3);
-        Restaurants newRestaurants = new Restaurants(RestaurantsName, RestaurantsLocation, RestaurantsDate, RestaurantsColor, RestaurantsId, cuisineId);
+        Restaurants newRestaurants = new Restaurants(RestaurantsName, RestaurantsLocation, RestaurantsDate, RestaurantsColor,  cuisineId, RestaurantsId);
         restaurants.Add(newRestaurants);
         Console.WriteLine("This will be the cause  of our sadness: " + rdr.GetInt32(0));
       }

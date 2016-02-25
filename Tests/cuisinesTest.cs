@@ -67,6 +67,10 @@ namespace cuisineRestaurants
      List<Restaurants> testRestaurantsList = new List<Restaurants> {firstRestaurant, secondRestaurant};
      List<Restaurants> resultRestaurantsList = testCuisines.GetRestaurants();
 
+
+     Console.WriteLine(firstRestaurant.GetId());
+     Console.WriteLine(resultRestaurantsList[0].GetId());
+
      Assert.Equal(testRestaurantsList, resultRestaurantsList);
    }
 
