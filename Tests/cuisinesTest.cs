@@ -61,7 +61,7 @@ namespace cuisineRestaurants
 
      Restaurants firstRestaurant = new Restaurants("TajMaHal", "2nd and Madison", new DateTime(2016, 2, 14), "blue", testCuisines.GetId());
      firstRestaurant.Save();
-     Restaurants secondRestaurant = new Restaurants("TajMaHal", "2nd and Madison", new DateTime(2016, 2, 14), "blue", testCuisines.GetId());
+     Restaurants secondRestaurant = new Restaurants("TajMaBal", "3rd and Madison", new DateTime(2014, 8, 8), "red", testCuisines.GetId());
      secondRestaurant.Save();
 
      List<Restaurants> testRestaurantsList = new List<Restaurants> {firstRestaurant, secondRestaurant};
