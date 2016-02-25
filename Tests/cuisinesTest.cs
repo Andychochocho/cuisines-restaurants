@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace cuisineRestaurants
 {
@@ -52,9 +53,26 @@ namespace cuisineRestaurants
      Assert.Equal(testCuisines, foundCuisines);
    }
 
+   [Fact]
+   public void Test_GetCuisines_RetrieveAllRestaurantsWithCuisines()
+   {
+     Cuisines testCuisines = new Cuisines("Indian");
+     testCuisines.Save();
+
+     Restaurants firstRestaurant = new Restaurants("TajMaHal", "2nd and Madison", new DateTime(2016, 2, 14), "blue", testCuisines.GetId());
+     firstRestaurant.Save();
+     Restaurants secondRestaurant = new Restaurants("TajMaHal", "2nd and Madison", new DateTime(2016, 2, 14), "blue", testCuisines.GetId());
+     secondRestaurant.Save();
+
+     List<Restaurants> testRestaurantsList = new List<Restaurants> {firstRestaurant, secondRestaurant};
+     List<Restaurants> resultRestaurantsList = testCuisines.GetRestaurants();
+
+     Assert.Equal(testRestaurantsList, resultRestaurantsList);
+   }
+
     public void Dispose()
     {
-      // Restaurants.DeleteAll();
+      Restaurants.DeleteAll();
       Cuisines.DeleteAll();
     }
   }

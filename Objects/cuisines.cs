@@ -106,10 +106,10 @@ namespace cuisineRestaurants
       conn.Open();
 
       SqlCommand cmd = new SqlCommand("SELECT * FROM cuisines WHERE id = @CuisinesId;", conn);
-      SqlParameter cuisinesIdParameter = new SqlParameter();
-      cuisinesIdParameter.ParameterName = "@CuisinesId";
-      cuisinesIdParameter.Value = id.ToString();
-      cmd.Parameters.Add(cuisinesIdParameter);
+      SqlParameter CuisinesIdParameter = new SqlParameter();
+      CuisinesIdParameter.ParameterName = "@CuisinesId";
+      CuisinesIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(CuisinesIdParameter);
       rdr = cmd.ExecuteReader();
 
       int foundCuisinesId = 0;
@@ -139,6 +139,46 @@ namespace cuisineRestaurants
       conn.Open();
       SqlCommand cmd = new SqlCommand("DELETE FROM cuisines;", conn);
       cmd.ExecuteNonQuery();
+    }
+
+    public List<Restaurants> GetRestaurants()
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr = null;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM restaurants WHERE cuisine_Id = @CuisinesId ORDER BY name DESC;", conn);
+      SqlParameter CuisinesIdParameter = new SqlParameter ();
+      CuisinesIdParameter.ParameterName = "@CuisinesId";
+      CuisinesIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(CuisinesIdParameter);
+      rdr = cmd.ExecuteReader();
+
+      Console.WriteLine("RDR: "+ rdr);
+
+      List<Restaurants> restaurants = new List<Restaurants> {};
+      Console.WriteLine("THE MISTAKE --->" + restaurants);
+      while(rdr.Read())
+      {
+        int RestaurantsId = rdr.GetInt32(0);
+        string RestaurantsName = rdr.GetString(1);
+        string RestaurantsLocation = rdr.GetString(2);
+        string RestaurantsColor = rdr.GetString(4);
+        int cuisineId = rdr.GetInt32 (5);
+        DateTime RestaurantsDate = rdr.GetDateTime(3);
+        Restaurants newRestaurants = new Restaurants(RestaurantsName, RestaurantsLocation, RestaurantsDate, RestaurantsColor, RestaurantsId, cuisineId);
+        restaurants.Add(newRestaurants);
+        Console.WriteLine("This will be the cause  of our sadness: " + rdr.GetInt32(0));
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return restaurants;
     }
   }
 }
