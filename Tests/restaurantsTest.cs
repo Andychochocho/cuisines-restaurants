@@ -35,9 +35,6 @@ namespace cuisineRestaurants
 
       List<Restaurants> results = Restaurants.GetAll();
       List<Restaurants> test = new List<Restaurants> {testingRestaurant};
-
-      // Console.WriteLine(results[0].GetName());
-
       Assert.Equal(results,test);
     }
     public void Dispose()
