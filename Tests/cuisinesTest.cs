@@ -83,6 +83,33 @@ namespace cuisineRestaurants
      Assert.Equal(newCuisines,result);
    }
 
+   [Fact]
+   public void Test_Delete_DeletesCuisinesFromDatabase()
+   {
+     string name1 = "Ethiopian";
+     Cuisines testCuisines1 = new Cuisines(name1);
+     testCuisines1.Save();
+
+     string name2 = "Brazilian";
+     Cuisines testCuisines2 = new Cuisines(name2);
+     testCuisines2.Save();
+
+     Restaurants testRestaurants1 = new Restaurants("Chipotle", "2nd and Stark", new DateTime(1980, 12, 11), "red", testCuisines1.GetId());
+     testRestaurants1.Save();
+
+     Restaurants testRestaurants2 = new Restaurants("BurgerKing", "Division and 95th", new DateTime(1921, 02, 23), "turqoiuse", testCuisines2.GetId());
+     testRestaurants2.Save();
+
+     testCuisines1.Delete();
+     List<Cuisines> resultCuisines = Cuisines.GetAll();
+     List<Cuisines> testCuisinesList = new List<Cuisines> {testCuisines2};
+
+     List<Restaurants> resultRestaurants = Restaurants.GetAll();
+     List<Restaurants> testRestaurantsList = new List<Restaurants> {testRestaurants2};
+
+     Assert.Equal(testCuisinesList, resultCuisines);
+     Assert.Equal(testRestaurantsList, resultRestaurants);
+   }
     public void Dispose()
     {
       Restaurants.DeleteAll();

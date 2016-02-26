@@ -55,7 +55,17 @@ namespace cuisineRestaurants
       Cuisines newCusisines = Cuisines.Find(Parameters.id);
       newCusisines.Update(Request.Form["cuisine-name"]);
       return View ["success.cshtml"];
-    };
+      };
+
+      Get["cuisines/delete/{id}"] = parameters => {
+        Cuisines SelectedCuisines = Cuisines.Find(parameters.id);
+        return View["cuisineDelete.cshtml", SelectedCuisines];
+      };
+      Delete["cuisines/delete/{id}"] = parameters => {
+        Cuisines SelectedCuisines = Cuisines.Find(parameters.id);
+        SelectedCuisines.Delete();
+        return View["success.cshtml"];
+      };
+    }
   }
-}
 }
