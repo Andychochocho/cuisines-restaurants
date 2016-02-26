@@ -1,0 +1,12 @@
+<h1>Here is a list of all your restaurants for this cuisine!</h1>
+@foreach (var x in Model["restaurant"])
+{
+    <h3>@x.GetName()</h3>
+    <li>@x.GetLocation()</li>
+    <li>@x.GetColor()</li>
+    <li>@x.GetOpeningDate()</li>
+}
+<h1>Add a restaurant to this type of cuisine!</h1>
+<a href="/cuisines/restaurantAdd">Add your restaurant here</a>
+<br><br>
+<a href="/">Go Home!</a>

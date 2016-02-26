@@ -9,7 +9,7 @@
 <ul>
   @foreach (var cuisinename in Model)
   {
-    <li><a href="/cuisines/@cuisinename.GetId()">@cuisinename.GetName()</a></li>
+    <li><a href="/cuisines/@cuisinename.GetId()">@cuisinename.GetName()</a> | <a href="/cuisines/edit/@cuisinename.GetId()">Edit</a></li>
   }
 </ul>
 

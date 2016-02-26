@@ -70,6 +70,19 @@ namespace cuisineRestaurants
      Assert.Equal(testRestaurantsList, resultRestaurantsList);
    }
 
+   [Fact]
+   public void Test_Update_UpdatesCuisinesInDatabase()
+   {
+     string name = "American";
+     Cuisines testCuisines = new Cuisines(name);
+     testCuisines.Save();
+     string newCuisines = "Chinese";
+
+     testCuisines.Update(newCuisines);
+     string result = testCuisines.GetName();
+     Assert.Equal(newCuisines,result);
+   }
+
     public void Dispose()
     {
       Restaurants.DeleteAll();

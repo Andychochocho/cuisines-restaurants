@@ -1,0 +1,8 @@
+<form class="" action="/cuisines/edit/@Model.GetId()" method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <input name="cuisine-id" type="hidden" value="@Model.GetId()">
+  <label for="cuisine-name"> Name</label>
+  <input id="cuisine-name" name="cuisine-name" type="text">
+  <label for="cuisine-name">Info Here</label>
+  <button type="submit">Complete</button>
+</form>

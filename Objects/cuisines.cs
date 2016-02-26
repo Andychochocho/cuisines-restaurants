@@ -29,6 +29,41 @@ namespace cuisineRestaurants
         return(idEquality && nameEquality);
       }
     }
+
+    public void Update (string newName)
+    {
+      SqlConnection conn = DB.Connection();
+      SqlDataReader rdr;
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE cuisines SET name=@NewName OUTPUT INSERTED.name WHERE id= @CuisinesId;", conn);
+
+      SqlParameter newNameParameter = new SqlParameter();
+      newNameParameter.ParameterName = "@NewName";
+      newNameParameter.Value = newName;
+      cmd.Parameters.Add(newNameParameter);
+
+      SqlParameter CuisinesIdParameter = new SqlParameter ();
+      CuisinesIdParameter.ParameterName = "@CuisinesId";
+      CuisinesIdParameter.Value= this.GetId();
+      cmd.Parameters.Add(CuisinesIdParameter);
+      rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._name = rdr.GetString(0);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
     // Getters and Setters
     public int GetId()
     {
@@ -137,7 +172,7 @@ namespace cuisineRestaurants
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
-      SqlCommand cmd = new SqlCommand("DELETE FROM cuisines;", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM cuisines", conn);
       cmd.ExecuteNonQuery();
     }
 
@@ -153,8 +188,6 @@ namespace cuisineRestaurants
       CuisinesIdParameter.Value = this.GetId();
       cmd.Parameters.Add(CuisinesIdParameter);
       rdr = cmd.ExecuteReader();
-
-      Console.WriteLine("RDR: "+ rdr);
 
       List<Restaurants> restaurants = new List<Restaurants> {};
       while(rdr.Read())

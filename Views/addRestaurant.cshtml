@@ -1,0 +1,22 @@
+<h1>Add your restaurant to the cuisine!</h1>
+<form action="/cuisines/viewRestaurant" method="post">
+  <label for="name">Name: </label>
+  <input type="text" name="name">
+  <br>  <br>
+  <label for="location">Location: </label>
+  <input type="text" name="location">
+  <br>  <br>
+  <label for="date">Date: </label>
+  <input type="date" name="date">
+  <br>  <br>
+  <label for="color">Color: </label>
+  <input type="text" name="color">
+  <br>  <br>
+  <select name="cuisines-id">
+     @foreach (var cuisines in Model)
+     {
+       <option value="@cuisines.GetId()">@cuisines.GetName()</option>
+     }
+   </select>
+  <button type="submit" name="button">Click here to add your cuisine!</button>
+</form>
